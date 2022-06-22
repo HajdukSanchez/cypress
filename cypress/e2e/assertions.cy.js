@@ -3,13 +3,20 @@ describe('Assertions', () => {
 		cy.visit('/automation-practice-form')
 	})
 
-	it('should render a valid URL', () => {
+	beforeEach(() => {
 		cy.url().should('include', 'demoqa.com')
+	})
+
+	afterEach(() => {
+		cy.url().should('include', 'demoqa.com')
+	})
+
+	after(() => {
+		cy.visit('/')
 	})
 
 	// Assertion 1
 	it('should input "First name" is visible 1', () => {
-		cy.get('#firstName').should('be.visible')
 		cy.get('#firstName').should('be.visible').and('have.attr', 'placeholder', 'First Name')
 	})
 
