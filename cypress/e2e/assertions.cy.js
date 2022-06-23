@@ -1,4 +1,4 @@
-describe('Assertions', () => {
+describe('Assertions', { browser: '!chrome' }, () => {
 	before(() => {
 		cy.visit('/automation-practice-form')
 	})
