@@ -155,4 +155,46 @@ describe('Elements interaction', () => {
 			cy.get('#mat-input-0').type('11/03/2022')
 		})
 	})
+
+	describe('Popups and tooltips interaction', () => {
+		it('should toggle modal', () => {
+			cy.visit('/modal-dialogs')
+			cy.get('#showSmallModal').click()
+			cy.get('#closeSmallModal').click()
+		})
+
+		it('should confirm alert message', () => {
+			cy.visit('/alerts')
+
+			const stub = cy.stub()
+			cy.on('window:confirm', stub) // Intercept user confirm action (in the alert)
+			cy.get('#confirmButton')
+				.click()
+				.then(() => {
+					expect(stub.getCall(0)).to.be.calledWith('Do you confirm action ?')
+				}) // Fisrt way
+
+			cy.on('window:confirm', (confirm) => {
+				expect(confirm).to.equal('Do you confirm action ?')
+			}) // Second way (shortter)
+			cy.contains('You selected Ok').should('exist') // Validate the element exist
+		})
+
+		it('should decline alert message', () => {
+			cy.on('window:confirm', (confirm) => {
+				expect(confirm).to.equal('Do you confirm action ?')
+				return false
+			})
+			cy.contains('You selected Cancel').should('exist')
+		})
+
+		it('should tooltip works and toogle', () => {
+			cy.visit('/tool-tips')
+			cy.get('#tooltipButton').trigger('mouseover')
+			cy.contains('You hovererd over the button').should('exist')
+
+			cy.get('#tooltipButton').trigger('mouseout')
+			cy.contains('You hovererd over the button').should('not.exist')
+		})
+	})
 })
