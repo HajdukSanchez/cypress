@@ -125,7 +125,7 @@ describe('Elements interaction', () => {
 			cy.visit('https://www.w3schools.com/html/html_tables.asp')
 		})
 
-		it.only('should get table info', () => {
+		it('should get table info', () => {
 			cy.get('#customers')
 				.find('th')
 				.each(($element) => {
@@ -133,16 +133,26 @@ describe('Elements interaction', () => {
 				})
 		})
 
-		it.only('should first table title equal to Company', () => {
+		it('should first table title equal to Company', () => {
 			cy.get('#customers').find('th').first().invoke('text').should('equal', 'Company')
 		})
 
-		it.only('should table title index 1 equal to Contact', () => {
+		it('should table title index 1 equal to Contact', () => {
 			cy.get('#customers').find('th').eq(1).invoke('text').should('equal', 'Contact')
 		})
 
-		it.only('should last table title equal to Country', () => {
+		it('should last table title equal to Country', () => {
 			cy.get('#customers').find('th').last().invoke('text').should('equal', 'Country')
+		})
+	})
+
+	describe('Date picker interaction', () => {
+		before(() => {
+			cy.visit('https://material.angular.io/components/datepicker/overview')
+		})
+
+		it.only('should interact with input date picker', () => {
+			cy.get('#mat-input-0').type('11/03/2022')
 		})
 	})
 })
