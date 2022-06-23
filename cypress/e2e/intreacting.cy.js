@@ -61,4 +61,30 @@ describe('Elements interaction', () => {
 			cy.get('label[for="hobbies-checkbox-1"]').uncheck() // Un check
 		})
 	})
+
+	describe('Extract info and make interaction', () => {
+		before(() => {
+			cy.visit('/automation-practice-form')
+		})
+
+		it('should the "First Name" is equal to Jozek', function () {
+			const fieldText = 'Jozek'
+
+			cy.get('#fisrtName').as('name') // Alias
+			cy.get('@name').type(fieldText) // Reference to the alias
+
+			cy,
+				get('@name').then(($name) => {
+					expect($name.val()).to.equal(fieldText) // Verify if the value is equal to Jozek
+				})
+
+			cy.get('@name').invoke('val').as('globalName') // Invoke the value function to get the value of name an save it as a globalName variable
+		})
+
+		it('should share info between test', function () {
+			// This way is the recomendeed one for Cypress
+			// Other way is to add a globla variable to sabe this name
+			cy.get('#fisrtName').type(this.globalName) // Get the value of globalName
+		})
+	})
 })
