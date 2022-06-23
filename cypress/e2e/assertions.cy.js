@@ -34,4 +34,15 @@ describe('Assertions', () => {
 			assert.equal(element.attr('placeholder'), 'First Name')
 		})
 	})
+
+	// Debugg
+	it('should console log a debuug', () => {
+		cy.task('log', 'debugg')
+	})
+
+	it('should log a message', () => {
+		cy.pause() // Pause the execution like a debugger breakpoint
+		cy.log('This is a message to log')
+		cy.get('#firstName').should('be.visible').and('have.attr', 'placeholder', 'First Name').debug()
+	})
 })
