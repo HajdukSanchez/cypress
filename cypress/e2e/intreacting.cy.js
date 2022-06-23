@@ -87,4 +87,36 @@ describe('Elements interaction', () => {
 			cy.get('#fisrtName').type(this.globalName) // Get the value of globalName
 		})
 	})
+
+	describe('Select element interaction', () => {
+		it.only('should interact with dropdown', () => {
+			cy.visit('https://itera-qa.azurewebsites.net/home/automation')
+			cy.get('.custom-select').select(10) // Select the option with index 10
+		})
+
+		it.only('should the option 3 has the value 3', () => {
+			cy.get('.custom-select').select('3').should('have.value', '3')
+		})
+
+		it.only('should Grecce have the value 4', () => {
+			cy.get('.custom-select').select('Greece').should('have.value', '4')
+		})
+
+		it('should select red option on the list ', () => {
+			cy.visit('https://react-select.com/home')
+			cy.get('#react-select-6-input').type(' ')
+			cy.get('#react-select-6-listbox')
+				.children()
+				.children()
+				.each(($element, index, $list) => {
+					if ($element.text() === 'Red') {
+						$element.click()
+					}
+				})
+		})
+
+		it('should select the 3 element of the list', () => {
+			cy.get('#react-select-6-option-3').click()
+		})
+	})
 })
