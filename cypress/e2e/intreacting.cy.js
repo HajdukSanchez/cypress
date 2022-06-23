@@ -89,16 +89,16 @@ describe('Elements interaction', () => {
 	})
 
 	describe('Select element interaction', () => {
-		it.only('should interact with dropdown', () => {
+		it('should interact with dropdown', () => {
 			cy.visit('https://itera-qa.azurewebsites.net/home/automation')
 			cy.get('.custom-select').select(10) // Select the option with index 10
 		})
 
-		it.only('should the option 3 has the value 3', () => {
+		it('should the option 3 has the value 3', () => {
 			cy.get('.custom-select').select('3').should('have.value', '3')
 		})
 
-		it.only('should Grecce have the value 4', () => {
+		it('should Grecce have the value 4', () => {
 			cy.get('.custom-select').select('Greece').should('have.value', '4')
 		})
 
@@ -117,6 +117,32 @@ describe('Elements interaction', () => {
 
 		it('should select the 3 element of the list', () => {
 			cy.get('#react-select-6-option-3').click()
+		})
+	})
+
+	describe('Tables and interaction', () => {
+		before(() => {
+			cy.visit('https://www.w3schools.com/html/html_tables.asp')
+		})
+
+		it.only('should get table info', () => {
+			cy.get('#customers')
+				.find('th')
+				.each(($element) => {
+					cy.log($element.text())
+				})
+		})
+
+		it.only('should first table title equal to Company', () => {
+			cy.get('#customers').find('th').first().invoke('text').should('equal', 'Company')
+		})
+
+		it.only('should table title index 1 equal to Contact', () => {
+			cy.get('#customers').find('th').eq(1).invoke('text').should('equal', 'Contact')
+		})
+
+		it.only('should last table title equal to Country', () => {
+			cy.get('#customers').find('th').last().invoke('text').should('equal', 'Country')
 		})
 	})
 })
