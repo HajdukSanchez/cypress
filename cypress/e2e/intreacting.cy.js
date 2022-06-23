@@ -44,4 +44,21 @@ describe('Elements interaction', () => {
 			cy.get('#firstName').clear() // Another way to clean the Input text
 		})
 	})
+
+	describe('Radio button and checkbox interaction', () => {
+		before(() => {
+			cy.visit('/automation-practice-form')
+		})
+
+		it('should radio button checked', () => {
+			cy.get('#gender-radio-1').check({ force: true }) // This force is because the check is cover by a label, so we need to add this property
+			// If check is cover by a label we can click the label
+			cy.get('label[for="gender-radio-1"]').click() // Same behavior for the check without the force
+		})
+
+		it('should checkbox checked and uncheck', () => {
+			cy.get('label[for="hobbies-checkbox-1"]').check()
+			cy.get('label[for="hobbies-checkbox-1"]').uncheck() // Un check
+		})
+	})
 })
